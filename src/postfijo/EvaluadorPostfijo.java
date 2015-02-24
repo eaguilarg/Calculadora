@@ -24,7 +24,7 @@ public double EvaluacionPostfijo(String operacion) throws Unchecked{
       caracter=operacion.charAt(i);
       
       //caso de que sea numero
-      if(caracter!='+' && caracter!='-' && caracter!='*' && caracter!='/'){
+      if(caracter!='+' && caracter!='-' && caracter!='*' && caracter!='/' && caracter!=' '){
           numero=Double.parseDouble((String.valueOf(caracter)));
           pila.add(numero);
           
