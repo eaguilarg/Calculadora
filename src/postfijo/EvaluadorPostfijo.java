@@ -2,6 +2,7 @@
 package postfijo;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class EvaluadorPostfijo {
 
@@ -10,22 +11,43 @@ public class EvaluadorPostfijo {
     
  //constructor
     public EvaluadorPostfijo(){
-        this.pila=new ArrayList<Integer>();
+        this.pila=new ArrayList<>();
     }
     
+ /*public String convierteTokens(String exp){
+     ArrayList <String> A=new ArrayList();
+     String s=""; 
+     Character c;
+     for(int i=0;i<exp.length();i++){
+         c=exp.charAt(i);
+         if(isDigit(c) || c=='.')
+             s+=c+"";
+         else{
+             if(s!=""){
+                 A.add(s);
+                 s="";
+             }
+             if(isOperator(c))
+                 A.add(c+"");
+         }
+     }
+ }   
+    */
     
 public double EvaluacionPostfijo(String operacion) throws Unchecked{
   Pila pila = new  Pila();
-  Double  numero = 0.0, numero2=0.0, resp = 0.0;
-  char caracter;
-  
+  Double  numero , numero2, resp = null;
+  char operador;
+  Scanner lectura = new Scanner(operacion);
+  String lector;
   //for para recorrer toda la cadena
-  for(int i=0;i<operacion.length();i++){
-      caracter=operacion.charAt(i);
+  while(lectura.hasNext()){
+      lector=lectura.next();
+      operador=lector.charAt(0);
       
       //caso de que sea numero
-      if(caracter!='+' && caracter!='-' && caracter!='*' && caracter!='/' && caracter!=' '){
-          pila.push(Double.parseDouble(""+caracter));
+      if(operador!='+' && operador!='-' && operador!='*' && operador!='/'){
+          pila.push(Double.parseDouble(lector));
           
       } else{
           if(pila.isEmpty()){
@@ -34,7 +56,7 @@ public double EvaluacionPostfijo(String operacion) throws Unchecked{
       //caso que sea operador
          numero2=(Double)pila.pop();
          numero=(Double)pila.pop();
-         switch(caracter){
+         switch(operador){
              case '+':
                  resp=numero+numero2;
                  break;
@@ -66,9 +88,10 @@ public double EvaluacionPostfijo(String operacion) throws Unchecked{
 
 public static void main(String args[]) throws Unchecked{
     EvaluadorPostfijo e=new EvaluadorPostfijo();
-    String operador = "1 8 * 2 * 4 -";         
+    String operador = "1 8 * 2 * 4 -";  
+    String cadena="7 1 + 2 * 4 + ";
 
-    System.out.print("= " + e.EvaluacionPostfijo(operador)); 
+    System.out.print("= " + e.EvaluacionPostfijo(cadena)); 
 
     
     
