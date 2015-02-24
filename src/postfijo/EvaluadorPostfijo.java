@@ -15,8 +15,8 @@ public class EvaluadorPostfijo {
     
     
 public double EvaluacionPostfijo(String operacion) throws Unchecked{
-  Mipila pila = new Mipila();
-  Double numero = 0.0, numero2, resp = 0.0;
+  Pila pila = new  Pila();
+  Double  numero = 0.0, numero2=0.0, resp = 0.0;
   char caracter;
   
   //for para recorrer toda la cadena
@@ -25,8 +25,7 @@ public double EvaluacionPostfijo(String operacion) throws Unchecked{
       
       //caso de que sea numero
       if(caracter!='+' && caracter!='-' && caracter!='*' && caracter!='/' && caracter!=' '){
-          numero=Double.parseDouble((String.valueOf(caracter)));
-          pila.push(numero);
+          pila.push(Double.parseDouble(""+caracter));
           
       } else{
           if(pila.isEmpty()){
@@ -67,13 +66,16 @@ public double EvaluacionPostfijo(String operacion) throws Unchecked{
 
 public static void main(String args[]) throws Unchecked{
     EvaluadorPostfijo e=new EvaluadorPostfijo();
-    String elemento="5 1 + 3 - 3 -";
+    String operador = "1 8 * 2 * 4 -";         
+
+    System.out.print("= " + e.EvaluacionPostfijo(operador)); 
+
     
-    e.EvaluacionPostfijo(elemento);
+    
      
 }
 
-    hola
+
     
     
 }
