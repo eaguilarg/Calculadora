@@ -15,7 +15,7 @@ public class EvaluadorPostfijo {
     
     
 public double EvaluacionPostfijo(String operacion) throws Unchecked{
-  ArrayList <Double> pila = new ArrayList <Double>();
+  Mipila pila = new Mipila();
   Double numero = 0.0, numero2, resp = 0.0;
   char caracter;
   
@@ -26,14 +26,15 @@ public double EvaluacionPostfijo(String operacion) throws Unchecked{
       //caso de que sea numero
       if(caracter!='+' && caracter!='-' && caracter!='*' && caracter!='/' && caracter!=' '){
           numero=Double.parseDouble((String.valueOf(caracter)));
-          pila.add(numero);
+          pila.push(numero);
           
-      }
-      else{//caso que sea operador
-         numero2=pila.get(pila.size()-1);//peek
-         pila.remove(pila.size()-1);//pop
-         numero=pila.get(pila.size()-1);
-         pila.remove(pila.size()-1);
+      } else{
+          if(pila.isEmpty()){
+              throw new Unchecked("Formato incorrecto");
+          }
+      //caso que sea operador
+         numero2=(Double)pila.pop();
+         numero=(Double)pila.pop();
          switch(caracter){
              case '+':
                  resp=numero+numero2;
@@ -50,25 +51,23 @@ public double EvaluacionPostfijo(String operacion) throws Unchecked{
                      throw new Unchecked("No se puede dividir entre cero");
                                   
          }
-         pila.add(resp);
+         pila.push(resp);
                    
       }
      
    }
   //para checar si cadena era correcta
   if(pila.size()!=1){
-      throw new Unchecked("Cadena en formato incorrecto");
+      throw new Unchecked("Formato incorrecto");
   }
   
-  return pila.get(pila.size()-1);//peek
-  
-
+  return (Double)pila.peek();
   
 }    
 
 public static void main(String args[]) throws Unchecked{
     EvaluadorPostfijo e=new EvaluadorPostfijo();
-    String elemento="51+";
+    String elemento="5 1 + 3 - 3 -";
     
     e.EvaluacionPostfijo(elemento);
      
